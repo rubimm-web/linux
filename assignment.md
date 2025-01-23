@@ -1,9 +1,9 @@
 # Account Setup
-- In  the first step, I'd create an Microsoft Azure account using email address that university provoded me.
+- In  the first step, I'd created Microsoft Azure account using email address that university provoded me.
 
-- Then I got  to know about the cloud and it's important. 
+- Then I got  to know about the cloud and its importance. 
 
-- Additionally, I explored student benefits  and open an student account and Azure give me *$100* worth of credits that I can use to purchase any package within the environment.
+- Additionally, I explored student benefits and open an student account and Azure give me *$100* worth of credits that I can use to purchase any package within the environment.
 
 
 # Create Virtual Machine
