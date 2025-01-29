@@ -41,12 +41,12 @@ Sets up basic profile.
 For task 2 initially, I tried using the following given command 
 
 ```sudo useradd -m -d /home/lupu -s /bin/bash -G lupu```
-However, this resulted is an error.
+- However, this resulted is an error.
 
 The issue was that we tried to add the user to a group that didn't exist yet. To fix this, we modified the command to include the -U flag, which automatically creates a user group with the same name as the user:
 
 ```sudo useradd -m -d /home/lupu -s /bin/bash -U lupu```
-Creating User Lupu
+- Creating User Lupu
 
 After creation, Set the password.
 
@@ -54,7 +54,7 @@ Task 3: Creating System User Hupu
 Created a system user Hupu with restricted login capabilities:
 
 ```sudo useradd --system --shell /bin/false hupu```
-Creating System User Hupu
+- Creating System User Hupu
 
 This creates a system account that:
 
@@ -71,10 +71,12 @@ Added sudo privileges for both Tupu and Lupu users using the usermod command:
 
 - Then adding:
 
-```tupu ALL=(ALL:ALL) ALL
-lupu ALL=(ALL:ALL) ALL```
+```
+tupu ALL=(ALL:ALL) ALL
+   lupu ALL=(ALL:ALL) ALL
+```
 
-Adding Sudo Privileges
+- Adding Sudo Privileges
 
 ![Screenshot 2025-01-29 212550](https://github.com/user-attachments/assets/b1dcc495-14b0-4227-be5e-9af66fa011ad)
 
@@ -96,13 +98,14 @@ This task required creating a shared directory with specific permissions for Tup
 
 The permission setup (2770) breaks down as:
 
-2: SetGID bit (ensures new files inherit group ownership)
-7: Owner has full permissions (read/write/execute)
-7: Group has full permissions (read/write/execute)
-0: Others have no permissions
-This configuration ensures:
+- 2: SetGID bit (ensures new files inherit group ownership)
+- 7: Owner has full permissions (read/write/execute)
+- 7: Group has full permissions (read/write/execute)
+- 0: Others have no permissions
 
-Only Tupu and Lupu can access the directory
-New files automatically inherit the projekti group
-Other users cannot access the directory
-Both users have full control over the directory and its contents
+  This configuration ensures :
+
+- Only Tupu and Lupu can access the directory
+- New files automatically inherit the projekti group
+- Other users cannot access the directory
+- Both users have full control over the directory and its contents
