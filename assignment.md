@@ -80,9 +80,11 @@ Adding Sudo Privileges
 ![Screenshot 2025-01-29 212550](https://github.com/user-attachments/assets/b1dcc495-14b0-4227-be5e-9af66fa011ad)
 
 ![Screenshot 2025-01-29 215916](https://github.com/user-attachments/assets/3a9bbd7d-bba0-43a7-be08-f13d6246b73e)
+
 Alternative method using:
 
 Adding Sudo Privileges
+
 ![Screenshot 2025-01-29 213703](https://github.com/user-attachments/assets/ebbc6394-3c63-436c-9134-b030dc8a8477)
 
 Task 5: Setting Up Shared Directory
