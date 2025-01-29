@@ -106,6 +106,3 @@ Only Tupu and Lupu can access the directory
 New files automatically inherit the projekti group
 Other users cannot access the directory
 Both users have full control over the directory and its contents
-To verify the setup:
-
-```sudo ls -la /opt/projekti```
