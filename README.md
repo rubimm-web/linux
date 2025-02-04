@@ -104,5 +104,4 @@ The name **markdown_linux_harjoitus** used as the directory name
 
 ## Task submission
 
-- Return README.md file as an electronic version in the course learning environment.
-- Return also the link to your own Git repository, pointing to file you created (.md).
+Electronic file and github link submitted to learn environment.
