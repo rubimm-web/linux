@@ -109,3 +109,10 @@ The permission setup (2770) breaks down as:
 - New files automatically inherit the projekti group
 - Other users cannot access the directory
 - Both users have full control over the directory and its contents
+
+
+- This is a Bold text
+- This is a italic text
+Assignment 4 - Link
+This can be a code block 
+  
