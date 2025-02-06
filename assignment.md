@@ -112,68 +112,76 @@ The permission setup (2770) breaks down as:
 
 
    
-## Assingment 4 (Scripting)
+## Assingment 5 (Scripting)
 
-In this assignment, I created a shell script called print.sh to add a line to the file diskspace.txt, reporting the home directory size and the current date and time. Then I used crontab to schedule this script to run every 12 hours, ensuring it runs at least six times to populate diskspace.txt with multiple entries. Finally, I utilized an awk command to find the line with the maximum value in the first column and printed it in the format: Max=[maximum value], at [date and time]. This task helped me automate the process of monitoring disk space and identifying the largest recorded value efficiently.
+In this assignment, we created a shell script called print.sh to add a line to the file diskspace.txt, reporting the home directory size and the current date and time. We then used crontab to schedule this script to run every 12 hours, ensuring it runs at least six times to populate diskspace.txt with multiple entries. Finally, we utilized an awk command to find the line with the maximum value in the first column and printed it in the format: Max=[maximum value], at [date and time]. This task helped us automate the process of monitoring disk space and identifying the largest recorded value efficiently.
+
 ### Step 1: Make a script and add it to cron
+
 **Script: `print.sh`**
+
 This script adds a line to the file `diskspace.txt`, reporting the home directory size and the current date.
+
 ``` bash
 #!/bin/bash
+
 output=$(ls -l / | grep home | awk '{print $5}')
 current_datetime=$(date)
-echo "$output $current_datetime" >> /home/lahiru_hewawasam/discspace.txt
+echo "$output $current_datetime" >> /home/azurerubi/discspace.txt
 ```
-![Bash file](images/w4-sh-file.jpg)
+
+![Screenshot 2025-02-06 203348](https://github.com/user-attachments/assets/4631c04f-39a0-4f27-b91a-03a2c0abbdff)
+
 **Add to Cron**
+
 Use the following command to open your crontab file:
+
 ``` bash
 crontab -e
 ```
+
 Add the following line to run the print.sh script every 12 hours:
+
 ``` bash
-0 */12 * * * /home/lahiru_hewawasam/print.sh
+0 */12 * * * /home/azurerubi/print.sh
 ```
-![Bash file](images/w4-crontab.jpg)
-**Note: For ease of testing I raned it in every 2 minutes ( \*/2 * * * * )**
+
+![Screenshot 2025-02-06 204014](https://github.com/user-attachments/assets/60a5164e-7252-44ac-897a-9c031dc532d7)
+
+
 ### Step 2: Run the script a minimum of 6 times
+
 After adding the script to cron, it will automatically run every 12 hours, adding a line to diskspace.txt each time. Ensure that it runs at least 6 times so that the file contains at least 6 lines.
-![Bash file](images/w4-discspace-file.jpg)
+
+
+![Screenshot 2025-02-06 211030](https://github.com/user-attachments/assets/2d89bca3-5cdd-4976-bd62-0f1a8b2ac134)
+
 ### Step 3: Find and print the line containing the maximum size
+
 Use the following awk command to find the line with the maximum size and print it in the specified format:
+
 ``` bash
-awk 'NR == 1 || $1 > max { max = $1; max_line = $0 } END { print "Max=" max ", at " substr(max_line, index(max_line, $2)) }' /home/lahiru_hewawasam/discspace.txt
+awk 'NR == 1 || $1 > max { max = $1; max_line = $0 } END { print "Max=" max ", at " substr(max_line, index(max_line, $2)) }' /home/azurerubi/discspace.txt
 ```
-![Bash file](images/w4-awk-command.jpg)
+
+![Screenshot 2025-02-06 211216](https://github.com/user-attachments/assets/49c510cf-7c7c-4621-af0b-9ee716d490d8)
+
+
 ### Explanation
+
 #### Script (print.sh):
+
 - output=$(ls -l / | grep home | awk '{print $5}'): Get the size of the home directory.
 - awk '{print $5}': Extract the size part.
 - current_datetime=$(date): Get the current date and time and stored in the variable current_datetime.
-- echo "$output $current_datetime" >> /home/lahiru_hewawasam/discspace.txt: Append the output to diskspace.txt.
+- echo "$output $current_datetime" >> /home/azurerubi/discspace.txt: Append the output to diskspace.txt.
+
 #### Cron:
+
 - 0 */12 * * *: Run the script every 12 hours. 
-**Note: For ease of testing I raned it in every 2 minutes ( \*/2 * * * * )**
+
+
 #### awk command:
+
 - NR == 1 || $1 > max { max = $1; max_line = $0 }: Find the maximum value in the first column.
 - END { print "Max=" max ", at " substr(max_line, index(max_line, $2)) }: Print the maximum value and the corresponding row in the desired format.
-‎images/w4-awk-command.jpg
-24.1 KB
-
-
-
-‎images/w4-crontab.jpg
-60.3 KB
-
-
-
-‎images/w4-discspace-file.jpg
-35.4 KB
-
-
-
-‎images/w4-sh-file.jpg
-18.7 KB
-
-
-
