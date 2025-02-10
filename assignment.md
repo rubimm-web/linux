@@ -185,3 +185,254 @@ awk 'NR == 1 || $1 > max { max = $1; max_line = $0 } END { print "Max=" max ", a
 
 - NR == 1 || $1 > max { max = $1; max_line = $0 }: Find the maximum value in the first column.
 - END { print "Max=" max ", at " substr(max_line, index(max_line, $2)) }: Print the maximum value and the corresponding row in the desired format.
+
+
+
+# Assingment 6
+
+
+# Part 1: Understanding APT & System Updates
+
+### 1.APT Version Check
+
+Command executed:
+``` bash
+apt --version
+```
+
+Output:
+
+![Screenshot 2025-02-10 203326](https://github.com/user-attachments/assets/9e3a0cc7-dbb3-4fef-b4a9-81644f8d2da2)
+
+
+
+### 2. Package List Update
+
+Command executed:
+``` bash
+sudo apt update
+```
+Output:
+
+
+![Screenshot 2025-02-10 203523](https://github.com/user-attachments/assets/46fc599d-0b5d-49c0-89f4-105766e5e1cf)
+
+
+ **This step is important because:**
+
+- Ensures the system has the latest information about available packages
+- Helps identify which packages need updates
+- It synchronizes the local package index with the remote repositories
+- Required before performing any package installations or upgrades
+
+
+### 3. Upgrade installed packages
+
+Command executed:
+``` bash
+sudo apt upgrade -y
+```
+Output:
+
+
+![Screenshot 2025-02-10 203900](https://github.com/user-attachments/assets/7563d8d5-69f8-4592-ad93-d872468200b5)
+
+![Screenshot 2025-02-10 204232](https://github.com/user-attachments/assets/cd4963ae-78b8-430c-b237-1935c25095de)
+
+![Screenshot 2025-02-10 204247](https://github.com/user-attachments/assets/7b1c4c4f-3cae-4a3f-b629-e6825374b177)
+
+
+**Difference between update and upgrade:**
+
+- apt update only refreshes the package index and metadata
+- apt upgrade actually downloads and installs newer versions of installed packages
+
+### 4. Pending Updates Check
+
+Command executed:
+``` bash
+apt list --upgradable
+```
+
+Output:
+
+![Screenshot 2025-02-10 204541](https://github.com/user-attachments/assets/da1cbeb0-eb87-4408-9f96-e887a8eeb87f)
+
+
+# Part 2: Installing & Managing Packages
+
+### 5. Search for a package using APT
+
+Command executed:
+``` bash
+apt search image editor
+```
+
+*Selected package: koko ( image gallery for Plasma mobile )*
+
+### 6. View Package Details
+
+Command executed:
+``` bash
+apt show koko
+```
+
+Output:
+
+
+![Screenshot 2025-02-10 205508](https://github.com/user-attachments/assets/f6f12d58-7f8d-4b5b-9bea-9f66100e4a6b)
+
+
+**Dependencies:**
+
+- koko-data (= 23.08.5+ds.1-1ubuntu2), libkf5purpose5, qml-module-org-kde-kquickcontrolsaddons, qml-module-org-kde-kquickimageeditor, qml-module-org-kde-qqc2breezestyle | qml-module-org-kde-qqc2desktopstyle, kio, libc6 (>= 2.34), libgcc-s1 (>= 3.3.1), libkf5configcore5 (>= 4.98.0), libkf5configgui5 (>= 5.74.0), libkf5coreaddons5 (>= 5.53.1), libkf5dbusaddons5 (>= 4.99.0), libkf5guiaddons-bin, libkf5guiaddons5 (>= 4.96.0), libkf5i18n5 (>= 5.17.0), libkf5kiocore5 (>= 5.92.0), libkf5kiowidgets5 (>= 5.59.0), libkf5notifications5 (>= 4.96.0), libkf5windowsystem5 (>= 5.91.0), libkokocommon0.0.1 (>= 23.08.3), libqt5core5t64 (>= 5.15.1), libqt5dbus5t64 (>= 5.0.2), libqt5gui5t64 (>= 5.14.1) | libqt5gui5-gles (>= 5.14.1), libqt5positioning5 (>= 5.6.0), libqt5qml5 (>= 5.14.1), libqt5quick5 (>= 5.4.0) | libqt5quick5-gles (>= 5.4.0), libqt5sql5t64 (>= 5.0.2), libqt5svg5 (>= 5.15.1), libqt5widgets5t64 (>= 5.0.2), libqt5x11extras5 (>= 5.6.0), libstdc++6 (>= 13.1), libxcb1
+
+### 7. Package Installation
+
+Command executed:
+``` bash
+sudo apt install koko -y
+```
+
+*Installation was successful, verified by launching the application.*
+
+### 8. Version Check
+
+Command executed:
+``` bash
+apt list --installed | grep koko
+```
+
+Output:
+
+![Screenshot 2025-02-10 210313](https://github.com/user-attachments/assets/7b20f73b-e06c-4bd1-ba35-063f3c73b592)
+
+
+
+# Part 3: Removing & Cleaning Packages
+
+### 9. Uninstall the package
+
+Command executed:
+``` bash
+sudo apt remove koko -y
+```
+
+*Note: This removes the package but keeps configuration files.*
+
+### 10. Remove Configuration files
+
+Command executed:
+``` bash
+sudo apt purge koko -y
+```
+
+**Difference between remove and purge:**
+
+- remove only uninstalls the package binaries
+- purge removes both the binaries and configuration files
+
+### 11. Clear Unnecessary Dependencies
+
+Command executed:
+``` bash
+sudo apt autoremove -y
+```
+
+**This step is important because:**
+
+- Removes packages that were installed as dependencies but are no longer needed
+- Keeps the system clean from unused software
+- Free disk space
+
+
+### 12. Clean Up Downloaded Package Files
+
+Command executed:
+``` bash
+sudo apt clean
+```
+
+**This command:**
+
+- Removes all downloaded package files (.deb) from the local cache
+- Frees up disk space in /var/cache/apt/archives/
+- Doesn't affect installed packages
+
+# Part 4: Managing Repositories & Troubleshooting
+
+### 13. Repository List
+
+Command executed:
+``` bash
+cat /etc/apt/sources.list
+```
+
+Output:
+
+![Screenshot 2025-02-10 210959](https://github.com/user-attachments/assets/8aeb5418-9895-4602-8f5d-edf56415ac02)
+
+
+**Observations:**
+
+- Contains main Ubuntu repositories
+- Includes different components (main, restricted, universe, multiverse)
+- Lists both source and binary package repositories
+- Contains security updates repositories
+
+### 14. To Add Universe Repository
+
+Command executed:
+``` bash
+sudo add-apt-repository universe
+sudo apt update
+```
+
+Output:
+
+![Screenshot 2025-02-10 211330](https://github.com/user-attachments/assets/632a5d37-7c6d-404d-87d2-7ee8d882ddb2)
+
+
+**Universe repository contains:**
+
+- Community-maintained software
+- Wide range of applications
+- Less official support
+  
+
+### 15. Installation Failure Simulation
+
+Command executed:
+``` bash
+sudo apt install fakepackage
+```
+
+Error message:
+
+![Screenshot 2025-02-10 211520](https://github.com/user-attachments/assets/6cfa9dac-e415-4453-a8e0-f01ab32f909c)
+
+
+**Troubleshooting steps:**
+
+1. Check package name 
+2. Check repositories
+3. Update package lists
+4. Search for package
+5. Fix broken package
+
+### _Bonus Challenge: Package Hold Management_
+
+Commands executed:
+``` bash
+sudo apt-mark hold firefox
+sudo apt-mark unhold firefox
+```
+![Screenshot 2025-02-10 211730](https://github.com/user-attachments/assets/25a3ceb3-4010-4246-8cd9-c01040abb691)
+
+
+**Reasons to hold a package:**
+
+- To prevent unwanted updates
+- To maintain a stable version of a package that is known to work well with your system.
+- To custom configurations
+- To test new versions of other packages without affecting the held package.
