@@ -436,3 +436,191 @@ sudo apt-mark unhold firefox
 - To maintain a stable version of a package that is known to work well with your system.
 - To custom configurations
 - To test new versions of other packages without affecting the held package.
+
+
+## Assingment 7 (Linux Virtualization)
+
+### Part 1: Virtualization Concepts
+
+**Virtualization**
+
+Virtualization is the process of creating virtual versions of computing resources, such as servers, storage, networks, or operating systems, instead of using physical hardware. It allows multiple virtual environments to run on a single physical machine, improving efficiency, scalability, and flexibility.
+
+**Hypervisor**
+
+A hypervisor is a software or firmware layer that allows multiple virtual machines (VMs) to run on a single physical machine by managing and allocating hardware resources. It enables virtualization by creating and managing isolated environments where different operating systems can run simultaneously on the same hardware. There are two types:
+
+Type 1 (Bare Metal): Runs directly on hardware (e.g., VMware ESXi, Xen)
+Type 2 (Hosted): Runs on top of an operating system (e.g., VirtualBox, VMware Workstation)
+
+**Virtual Machines (VMs)**
+
+A Virtual Machine (VM) is a software-based simulation of a physical computer that runs an operating system (OS) and applications just like a real machine. It is created and managed by a hypervisor, which allocates resources like CPU, memory, storage, and network access from the physical hardware.
+
+**Containers**
+
+A container is a lightweight, portable, and isolated environment that allows applications to run consistently across different computing environments. Unlike virtual machines (VMs), which require a full operating system (OS) for each instance, containers share the host OS kernel, making them more efficient and faster to deploy.
+
+#### Difference Between VMs and Containers 
+
+**Architecture**
+
+- VMs: Each VM includes a full OS with a hypervisor managing hardware resources.
+- Containers: Containers share the host OS kernel and run as isolated processes.
+
+**OS Dependency**
+
+- VMs: Each VM has its own OS (Windows, Linux, etc.).
+- Containers: Containers share the host OS, but each runs its own dependencies.
+  
+**Startup Time**
+
+- VMs: Slower (minutes) because the OS must boot.
+- Containers: Fast (seconds) since they share the host OS.
+  
+**Isolation Level**
+
+- VMs: Complete hardware-level isolation
+- Containers: Process-level isolation
+
+### Part 2: Multipass Implementation
+
+#### Installation
+
+``` bash
+# Install Multipass
+sudo snap install multipass
+```
+IMAGE
+
+#### Basic Commands Implementation
+
+```bash
+# Launch default Ubuntu instance
+multipass launch --name primary-vm
+```
+IMAGE
+
+```bash
+# List running instances
+multipass list
+```
+IMAGE
+
+```bash
+# View instance details
+multipass info primary-vm
+```
+IMAGE
+
+```bash
+# Access instance shell
+multipass shell primary-vm
+```
+IMAGE
+
+```bash
+# Execute command on instance
+multipass exec primary-vm -- ls -la
+```
+IMAGE
+
+```bash
+# Stop instance
+multipass stop primary-vm
+
+# Delete instance
+multipass delete primary-vm
+```
+IMAGE
+
+#### Cloud-init Configuration
+
+**Start a New Instance with Multipass**
+
+IMAGE
+
+To start a new instance using this cloud-init configuration, you can use the following multipass command:
+
+```bash
+multipass launch --name my-instance --cloud-init cloud-init.yaml
+```
+
+#### File sharing
+
+```bash
+# Create shared directory
+mkdir ~/shared-folder
+
+# Mount to instance
+multipass mount ~/shared-folder my-instance:/shared
+```
+
+### Part 3: LXD Implementation
+
+```bash
+# Create container
+lxc launch ubuntu:20.04 my-container
+
+# List containers
+lxc list
+
+# Execute commands
+lxc exec my-container -- apt update
+
+# Stop container
+lxc stop my-container
+
+# Delete container
+lxc delete my-container
+```
+IMAGE
+
+### Part 4: Docker Implementation
+
+#### Installation
+
+```bash
+# Install Docker Engine
+sudo apt update
+sudo apt install docker.io
+
+# Start and enable Docker
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
+Basic Docker Commands
+
+```bash
+# Pull image
+docker pull ubuntu:latest
+
+# Run container
+docker run -it ubuntu:latest
+
+# List containers
+docker ps
+
+# Build from Dockerfile
+docker build -t myapp .
+
+# Stop container
+docker stop container_id
+```
+IMAGE
+### Part 5: Snap Implementation
+
+#### Creating a Basic Snap
+
+IMAGE
+
+#### Build and install
+
+```bash
+# Build snap
+snapcraft
+
+# Install locally
+sudo snap install my-app_1.0_amd64.snap --dangerous
+```
