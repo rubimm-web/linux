@@ -491,7 +491,8 @@ A container is a lightweight, portable, and isolated environment that allows app
 # Install Multipass
 sudo snap install multipass
 ```
-IMAGE
+
+![Screenshot 2025-02-19 221427](https://github.com/user-attachments/assets/c6331dc1-322b-439a-8857-99aa3f560cc8)
 
 #### Basic Commands Implementation
 
@@ -499,31 +500,38 @@ IMAGE
 # Launch default Ubuntu instance
 multipass launch --name primary-vm
 ```
-IMAGE
+
+![Screenshot 2025-02-19 221452](https://github.com/user-attachments/assets/bbd9dc94-7b0e-4e37-bf20-c062b214cc50)
 
 ```bash
 # List running instances
 multipass list
 ```
-IMAGE
+
+![Screenshot 2025-02-19 221614](https://github.com/user-attachments/assets/3b1c64df-3b7a-4c41-a2f0-7e2012360615)
 
 ```bash
 # View instance details
 multipass info primary-vm
 ```
-IMAGE
+
+![Screenshot 2025-02-19 221709](https://github.com/user-attachments/assets/1166ff52-0293-4b09-bb86-96be6efdbb03)
 
 ```bash
 # Access instance shell
 multipass shell primary-vm
 ```
-IMAGE
+
+
+![Screenshot 2025-02-19 221826](https://github.com/user-attachments/assets/e10c609b-db57-4da2-95ff-c9504fe11860)
 
 ```bash
 # Execute command on instance
 multipass exec primary-vm -- ls -la
 ```
-IMAGE
+
+![Screenshot 2025-02-19 222425](https://github.com/user-attachments/assets/2c4bcfa7-a3e5-4f81-b0de-a3ec9c572e8b)
+
 
 ```bash
 # Stop instance
@@ -532,13 +540,15 @@ multipass stop primary-vm
 # Delete instance
 multipass delete primary-vm
 ```
-IMAGE
+
+![Screenshot 2025-02-19 222714](https://github.com/user-attachments/assets/99a0efb4-c250-4318-ad3b-92f5459eee99)
 
 #### Cloud-init Configuration
 
 **Start a New Instance with Multipass**
 
-IMAGE
+
+![Screenshot 2025-02-19 223645](https://github.com/user-attachments/assets/04d9827a-a276-4600-9451-9fd30d11c9db)
 
 To start a new instance using this cloud-init configuration, you can use the following multipass command:
 
@@ -574,7 +584,8 @@ lxc stop my-container
 # Delete container
 lxc delete my-container
 ```
-IMAGE
+
+![Screenshot 2025-02-20 222257](https://github.com/user-attachments/assets/40178254-a03e-42c7-80b9-d3dacaa3e249)
 
 ### Part 4: Docker Implementation
 
@@ -608,19 +619,130 @@ docker build -t myapp .
 # Stop container
 docker stop container_id
 ```
-IMAGE
+
+![Screenshot 2025-02-20 223222](https://github.com/user-attachments/assets/4099c609-55fd-4828-b56b-0ab5362f8375)
+
+
 ### Part 5: Snap Implementation
 
-#### Creating a Basic Snap
+#### Install snapcraft
 
-IMAGE
-
-#### Build and install
+Install Snapcraft:
 
 ```bash
-# Build snap
-snapcraft
-
-# Install locally
-sudo snap install my-app_1.0_amd64.snap --dangerous
+sudo apt update
+sudo apt install snapcraft -y
 ```
+
+If you're on a non-Ubuntu system, you may need to install Snapcraft via Snap:
+
+```bash
+sudo snap install snapcraft --classic
+```
+
+#### Create a project directory
+
+Create a directory for your Snap project:
+
+```bash
+mkdir my-snapcraft
+cd my-snapcraft
+```
+
+#### Create the Application Script
+
+We’ll make a simple Bash script that prints "Hello, World!".
+
+```bash
+mkdir bin
+nano bin/hello-world
+```
+
+Paste the following content into the file:
+
+```bash
+#!/bin/bash
+echo "Hello, World!"
+```
+
+Save and exit (in nano, press CTRL+X, then Y, then Enter).
+
+Make the script executable:
+
+```bash
+chmod +x bin/hello-world
+```
+
+#### Create the snapcraft YAML file
+
+Snapcraft requires a snapcraft.yaml file to define how the Snap should be built.
+Create the file:
+
+```bash
+nano snapcraft.yaml
+```
+
+Add the following content:
+
+```bash
+name: my-snapcraft
+base: core22
+version: "1.0"
+summary: "A simple Snapcraft app"
+description: "This is a simple Snap application that prints Hello, World!"
+
+grade: stable
+confinement: strict
+
+apps:
+  hello:
+    command: bin/hello-world
+
+parts:
+  hello:
+    plugin: dump
+    source: .
+```
+![Screenshot 2025-02-20 224858](https://github.com/user-attachments/assets/cf377d66-4ddc-4421-9c32-0e7a7a18210d)
+
+
+This configuration:
+
+- Names the Snap my-snapcraft
+- Uses the core22 base (Ubuntu 22.04)
+- Defines a simple app that runs bin/hello-snap
+- Uses the dump plugin to include our script in the package
+
+#### Build the snap package
+
+Run the following command to build your Snap:
+
+```bash
+snapcraft
+```
+
+If it's the first time running Snapcraft, it may prompt you to install additional dependencies.
+
+#### Install and run your snap
+
+Once the build is complete, install the generated .snap file (e.g., my-snapcraft_1.0_amd64.snap):
+
+```bash
+sudo snap install my-snapcraft_1.0_amd64.snap --dangerous
+
+```
+
+The --dangerous flag is needed because it’s not from the official Snap store.
+
+Now, run your Snap:
+
+```bash
+my-snapcraft.hello
+```
+
+You should see:
+
+```bash
+Hello, World!
+```
+![Screenshot 2025-02-20 230158](https://github.com/user-attachments/assets/9cd5e6d3-04ef-40f4-888c-4c755634ddba)
