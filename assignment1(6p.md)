@@ -1,6 +1,6 @@
 
-
 ## Assignment 01 (6p)
+# Programming With C language
 
 Install gcc
 
@@ -19,7 +19,7 @@ To install GCC, use the following commands based on your operating system:
         
         sudo apt install gcc
 
-![alt text](01.png)
+
 
 Install gcc
 
